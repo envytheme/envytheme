@@ -1,83 +1,169 @@
-![EnvyTheme Logo](https://shop.envytheme.com/wp-content/uploads/2020/09/envytheme-logo-with-name-1.png)
+#!/bin/bash
 
-# EnvyTheme – Creative Digital Agency & Power Elite Author
+WATCH="/var/www"
+ALERT_EMAIL="shabbir.3s.et@gmail.com"
+ALERT_FROM="hello@envytheme.com"
+HOST="$(hostname -f 2>/dev/null || hostname)"
+LOG="/var/log/wp-security-monitor.log"
 
-👋 Welcome! We’re **EnvyTheme**, a full-service digital agency and **Envato Power Elite Author**. We specialize in **UI/UX design**, **frontend/backend development**, and building modern, conversion-focused websites and web applications for global clients.
+send_alert() {
+    local subject="$1"
+    local body="$2"
 
-Whether you're looking to **launch a SaaS platform**, **create a high-performance eCommerce site**, or **build a stunning admin dashboard**, EnvyTheme is your trusted partner for scalable, elegant digital solutions.
+    echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') $subject $body" >> "$LOG"
 
----
+    printf '%s\n' "$body" | \
+        mail -r "$ALERT_FROM" \
+        -s "SECURITY ALERT [$HOST] $subject" \
+        "$ALERT_EMAIL"
+}
 
-## 🔥 What We Do
+inotifywait -m -r \
+    -e create,close_write,moved_to \
+    --format '%e|%w%f' \
+    "$WATCH" 2>/dev/null |
+while IFS='|' read -r event file; do
 
-### 🛠️ Design & Development Services
+    base="$(basename "$file")"
 
-We provide expert web and mobile services, including:
+    if [[ "$file" =~ /\.sc_[A-Za-z0-9]+ ]] ||
+       [[ "$base" == "advanced-builder-lite.php" ]] ||
+       [[ "$base" == ".bt_advanced-builder-lite" ]] ||
+       [[ "$base" == ".rd_advanced-builder-lite" ]] ||
+       [[ "$base" == ".sd_advanced-builder-lite" ]] ||
+       [[ "$base" =~ ^\.gr_.*\.php$ ]]; then
 
-- UI/UX Design (Web, SaaS, Admin UI, Landing Pages)
-- Custom Frontend Development (HTML5, Tailwind CSS, Bootstrap)
-- CMS Development (WordPress, WooCommerce, Elementor)
-- Full-Stack Web Apps (React, Next.js, Angular, Laravel)
-- eCommerce & Marketplace Sites
-- Theme & Template Customization
-- Ongoing Maintenance & Support
+        send_alert \
+          "Known malware indicator" \
+          "Event: $event
+File: $file
+Time: $(date -u)
 
-### 🎨 Premium Templates on ThemeForest
+Known persistence indicator detected."
 
-We are a top-rated author with 41,000+ happy customers on [ThemeForest](https://1.envato.market/O2y7r), offering:
+        continue
+    fi
 
-- 🔹 **Admin Dashboard Templates** (e.g., [Trezo](https://preview.envytheme.com/trezo-admin/))  
-- 🔹 **HTML5 Multipurpose Templates** (e.g., [Torado](https://torado.envytheme.com))  
-- 🔹 **WordPress Themes** for Education, Medical, Agency, Real Estate, and more  
-- 🔹 Templates for LMS, eCommerce, SaaS, Personal Portfolio, Corporate, and Startup websites
+    if [[ "$file" == *.php ]] &&
+       [[ "$file" =~ /wp-content/(uploads|cache)/ ]]; then
 
----
+        send_alert \
+          "PHP created in uploads/cache" \
+          "Event: $event
+File: $file
+Time: $(date -u)
 
-## ✨ Trusted by 60,000+ Customers worldwide
+PHP in this location requires immediate review."
 
-✔️ Clean, semantic code  
-✔️ Responsive & mobile-first design  
-✔️ SEO-optimized architecture  
-✔️ Cross-browser tested  
-✔️ Regular updates & dedicated support  
-✔️ Fully documented for developers
+        continue
+    fi
 
----
+    if [[ "$base" == "advanced-cache.php" ||
+          "$base" == "object-cache.php" ||
+          "$base" == "db.php" ||
+          "$base" == "wp-config.php" ||
+          "$base" == ".user.ini" ]]; then
 
-## 🧑‍💻 Work With Us
+        send_alert \
+          "Sensitive WordPress file changed" \
+          "Event: $event
+File: $file
+Time: $(date -u)"
 
-Need a custom UI/UX solution or want to bring your product to life?
+        continue
+    fi
 
-📩 Submit your brief: [Project Order Form](https://shop.envytheme.com/submit-your-service-order/)
+    if [[ "$file" == *.php && -f "$file" ]]; then
+        if grep -qE \
+          'SCV:4\.3\.24|SCOCV:4\.3\.24|SC_TH_BEGIN|SC_ADV_BEGIN|SC_DB_BEGIN|SC_DD_BEGIN|_sc_mkdir|advanced-builder-lite' \
+          "$file" 2>/dev/null; then
 
-We’ll reach out with a tailored solution and quote.
+            send_alert \
+              "SC malware signature detected" \
+              "Event: $event
+File: $file
+Time: $(date -u)"
 
----
+            continue
+        fi
+    fi
+done
+=================== SCAN ===================
+#!/bin/bash
 
-## 🌐 Explore Our Work
+ALERT_EMAIL="shabbir.3s.et@gmail.com"
+ALERT_FROM="hello@envytheme.com"
+HOST="$(hostname -f 2>/dev/null || hostname)"
+STATE="/var/lib/wp-security-scan"
+LOG="/var/log/wp-security-scan.log"
 
-- 🔗 [ThemeForest Portfolio](https://1.envato.market/O2y7r)  
-- 🎨 [Dribbble Profile](https://dribbble.com/envytheme)  
-- 💻 [EnvyTheme](https://envytheme.com)
+mkdir -p "$STATE"
 
----
+TMP="$(mktemp)"
+trap 'rm -f "$TMP"' EXIT
 
-## 🤝 Connect With Us
+{
+    # Exact known persistence filenames anywhere under /var/www.
+    # Ignore artifacts already quarantined during incident response.
+    find /var/www \
+      \( -type f -o -type d \) \
+      ! -path '*quarantine-*' \
+      ! -path '*quarantine-*/*' \
+      \( \
+        -path '*/wp-content/mu-plugins/advanced-builder-lite.php' -o \
+        -path '*/wp-content/plugins/advanced-builder-lite/advanced-builder-lite.php' -o \
+        -name '.bt_advanced-builder-lite' -o \
+        -name '.rd_advanced-builder-lite' -o \
+        -name '.sd_advanced-builder-lite' -o \
+        -name '.gr_*.php' -o \
+        -name '.sc_*' \
+      \) -print 2>/dev/null
 
-Stay up-to-date and get inspired!
+    # PHP created/changed during the last 10 minutes.
+    find /var/www -type f -name '*.php' -mmin -10 \
+      ! -path '*quarantine-*' \
+      ! -path '*quarantine-*/*' \
+      -print0 2>/dev/null |
+    while IFS= read -r -d '' f; do
 
-[![Facebook](https://img.shields.io/badge/Facebook-1877F2?logo=facebook&logoColor=white)](https://facebook.com/envytheme)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://linkedin.com/company/envytheme)
-[![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/envytheme3s/)
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?logo=youtube&logoColor=white)](https://www.youtube.com/@EnvyTheme)
+        # PHP in uploads/cache is high priority.
+        case "$f" in
+            */wp-content/uploads/*|*/wp-content/cache/*)
+                echo "$f"
+                continue
+                ;;
+        esac
 
----
+        # Scan only recently modified PHP content.
+        if grep -qE \
+          'SCV:4\.(3\.24|5\.3)|SCOCV:4\.(3\.24|5\.3)|SC_TH_BEGIN|SC_ADV_BEGIN|SC_DB_BEGIN|SC_DD_BEGIN|_sc_mkdir|__scf_|advanced-builder-lite|bright-conductor-dot|prime-keeper-tap|WORDPRESS_ADMIN_USER|_pre_user_id|CURLOPT_LF_TEST|SEO Links Bot Manager|Advanced LinkFlow Control|Advanced Server Response Handler' \
+          "$f" 2>/dev/null; then
+            echo "$f"
+        fi
+    done
 
-## 📞 Contact
+} | sort -u > "$TMP"
 
-For support, custom orders, or collaboration, visit:  
-🌐 **[EnvyTheme.com](https://envytheme.com)**  
-✉️ hello@envytheme.com
+if [ -s "$TMP" ]; then
+    HASH="$(sha256sum "$TMP" | awk '{print $1}')"
+    OLD="$(cat "$STATE/last_hash" 2>/dev/null)"
 
-Thank you for choosing EnvyTheme 💙  
-*We’re passionate about building your digital success.*
+    if [ "$HASH" != "$OLD" ]; then
+        {
+            echo "Suspicious WordPress filesystem indicators detected."
+            echo
+            echo "Host: $HOST"
+            echo "Time: $(date -u)"
+            echo
+            cat "$TMP"
+        } | mail -r "$ALERT_FROM" \
+            -s "SECURITY ALERT [$HOST] WordPress filesystem indicators" \
+            "$ALERT_EMAIL"
+
+        echo "$(date -u '+%F %T UTC') alert sent" >> "$LOG"
+        echo "$HASH" > "$STATE/last_hash"
+    fi
+else
+    rm -f "$STATE/last_hash"
+fi
+root@EnvyTheme:/var/www/html# 
