@@ -1,169 +1,87 @@
-#!/bin/bash
+<p align="center">
+  <a href="https://envytheme.com/">
+    <img src="https://envytheme.com/apple-icon.png" width="80" height="80" alt="EnvyTheme logo" />
+  </a>
+</p>
 
-WATCH="/var/www"
-ALERT_EMAIL="shabbir.3s.et@gmail.com"
-ALERT_FROM="hello@envytheme.com"
-HOST="$(hostname -f 2>/dev/null || hostname)"
-LOG="/var/log/wp-security-monitor.log"
+<h1 align="center">EnvyTheme</h1>
 
-send_alert() {
-    local subject="$1"
-    local body="$2"
+<p align="center">
+  <strong>Product design &amp; development</strong><br />
+  Design and development for products people actually use.
+</p>
 
-    echo "$(date -u '+%Y-%m-%d %H:%M:%S UTC') $subject $body" >> "$LOG"
+<p align="center">
+  <a href="https://envytheme.com/contact">Start a project</a> &nbsp;·&nbsp;
+  <a href="https://envytheme.com/work">Explore our work</a> &nbsp;·&nbsp;
+  <a href="https://envytheme.com/pricing">View pricing</a> &nbsp;·&nbsp;
+  <a href="https://support.envytheme.com/">Item support</a>
+</p>
 
-    printf '%s\n' "$body" | \
-        mail -r "$ALERT_FROM" \
-        -s "SECURITY ALERT [$HOST] $subject" \
-        "$ALERT_EMAIL"
-}
+We help founders, businesses and development teams design, build, launch and improve digital products. Our work spans UI/UX, websites, web and mobile apps, SaaS, eCommerce and AI integrations.
 
-inotifywait -m -r \
-    -e create,close_write,moved_to \
-    --format '%e|%w%f' \
-    "$WATCH" 2>/dev/null |
-while IFS='|' read -r event file; do
+As an **Envato Power Elite Author**, our team brings experience creating **1,500+ digital products used by 70,000+ customers across our product catalog and marketplace accounts**. We bring that experience to custom projects, product improvements and ongoing development.
 
-    base="$(basename "$file")"
+## What we do
 
-    if [[ "$file" =~ /\.sc_[A-Za-z0-9]+ ]] ||
-       [[ "$base" == "advanced-builder-lite.php" ]] ||
-       [[ "$base" == ".bt_advanced-builder-lite" ]] ||
-       [[ "$base" == ".rd_advanced-builder-lite" ]] ||
-       [[ "$base" == ".sd_advanced-builder-lite" ]] ||
-       [[ "$base" =~ ^\.gr_.*\.php$ ]]; then
+| Service | How we help |
+| --- | --- |
+| **UI/UX & product design** | User journeys, wireframes, interface design, prototypes and design systems. |
+| **Web app development** | Dashboards, portals and custom applications with frontend and backend development. |
+| **Mobile app development** | iOS and Android apps built with Flutter or React Native. |
+| **SaaS & MVP development** | Product scoping, prototypes and the core features needed for a first release. |
+| **Website development** | Responsive marketing websites, landing pages and CMS implementation. |
+| **Shopify & eCommerce** | Store setup, custom themes, integrations and improvements to existing stores. |
+| **AI app rescue** | Review and improve apps made with AI tools, addressing issues before launch. |
+| **AI integration** | Assistants, search, summaries, and workflow automation inside your product. |
+| **Maintenance & support** | Updates, fixes, monitoring and improvements after launch. |
 
-        send_alert \
-          "Known malware indicator" \
-          "Event: $event
-File: $file
-Time: $(date -u)
+We also offer **paid theme and template customization**, including setup, branding, layout changes, custom features and integrations.
 
-Known persistence indicator detected."
+[Explore our services →](https://envytheme.com/services)
 
-        continue
-    fi
+## Technologies we work with
 
-    if [[ "$file" == *.php ]] &&
-       [[ "$file" =~ /wp-content/(uploads|cache)/ ]]; then
+- **Design:** Figma, interactive prototypes and design systems.
+- **Frontend:** React, Next.js, Vue, Angular, Astro, Tailwind CSS and Bootstrap.
+- **Backend:** Node.js, Laravel, Django and Ruby on Rails.
+- **Mobile:** Flutter and React Native.
+- **Websites & commerce:** WordPress, WooCommerce, Shopify, Webflow and Framer.
 
-        send_alert \
-          "PHP created in uploads/cache" \
-          "Event: $event
-File: $file
-Time: $(date -u)
+We choose the stack around your product, existing systems, and the team maintaining it.
 
-PHP in this location requires immediate review."
+## How we work
 
-        continue
-    fi
+1. **Scope:** Understand your goals and agree on deliverables, price, and timeline in writing.
+2. **Design:** Map the experience and refine the screens into a prototype.
+3. **Build:** Develop, review, test, and prepare the product for launch.
+4. **Improve:** Continue with maintenance, fixes, and the next features.
 
-    if [[ "$base" == "advanced-cache.php" ||
-          "$base" == "object-cache.php" ||
-          "$base" == "db.php" ||
-          "$base" == "wp-config.php" ||
-          "$base" == ".user.ini" ]]; then
+You work with a dedicated project manager, a shared project board, and weekly updates. We use AI to accelerate research, design, and development, with our designers and engineers reviewing the work.
 
-        send_alert \
-          "Sensitive WordPress file changed" \
-          "Event: $event
-File: $file
-Time: $(date -u)"
+Choose a fixed-scope project, an ongoing design and development subscription, or a care plan. We can also work alongside your existing team. We can provide an NDA on request before you share sensitive project information.
 
-        continue
-    fi
+## Products from our catalog
 
-    if [[ "$file" == *.php && -f "$file" ]]; then
-        if grep -qE \
-          'SCV:4\.3\.24|SCOCV:4\.3\.24|SC_TH_BEGIN|SC_ADV_BEGIN|SC_DB_BEGIN|SC_DD_BEGIN|_sc_mkdir|advanced-builder-lite' \
-          "$file" 2>/dev/null; then
+| Product | What it is |
+| --- | --- |
+| [Trezo](https://envytheme.com/work/trezo) | Admin dashboard and landing page templates across multiple frameworks. |
+| [Vaximo](https://envytheme.com/work/vaximo) | A cybersecurity WordPress theme. |
+| [StartP](https://envytheme.com/work/startp) | React and Next.js templates for startups, SaaS and digital agencies. |
 
-            send_alert \
-              "SC malware signature detected" \
-              "Event: $event
-File: $file
-Time: $(date -u)"
+[Browse our ThemeForest portfolio →](https://themeforest.net/user/envytheme/portfolio)
 
-            continue
-        fi
-    fi
-done
-=================== SCAN ===================
-#!/bin/bash
+## Work with us
 
-ALERT_EMAIL="shabbir.3s.et@gmail.com"
-ALERT_FROM="hello@envytheme.com"
-HOST="$(hostname -f 2>/dev/null || hostname)"
-STATE="/var/lib/wp-security-scan"
-LOG="/var/log/wp-security-scan.log"
+Tell us what you are building, share an existing product, or describe what needs improving. We will discuss the requirements and confirm the scope and quote before work starts.
 
-mkdir -p "$STATE"
+**[Send your project brief →](https://envytheme.com/contact)**  
+**Email:** [salak@envytheme.com](mailto:salak@envytheme.com)
 
-TMP="$(mktemp)"
-trap 'rm -f "$TMP"' EXIT
+For help with an existing theme or template purchase, please use our [support portal](https://support.envytheme.com/). Item support follows [Envato's Item Support Policy](https://themeforest.net/page/item_support_policy); customization and installation are quoted separately.
 
-{
-    # Exact known persistence filenames anywhere under /var/www.
-    # Ignore artifacts already quarantined during incident response.
-    find /var/www \
-      \( -type f -o -type d \) \
-      ! -path '*quarantine-*' \
-      ! -path '*quarantine-*/*' \
-      \( \
-        -path '*/wp-content/mu-plugins/advanced-builder-lite.php' -o \
-        -path '*/wp-content/plugins/advanced-builder-lite/advanced-builder-lite.php' -o \
-        -name '.bt_advanced-builder-lite' -o \
-        -name '.rd_advanced-builder-lite' -o \
-        -name '.sd_advanced-builder-lite' -o \
-        -name '.gr_*.php' -o \
-        -name '.sc_*' \
-      \) -print 2>/dev/null
+## Connect
 
-    # PHP created/changed during the last 10 minutes.
-    find /var/www -type f -name '*.php' -mmin -10 \
-      ! -path '*quarantine-*' \
-      ! -path '*quarantine-*/*' \
-      -print0 2>/dev/null |
-    while IFS= read -r -d '' f; do
+[Website](https://envytheme.com/) · [LinkedIn](https://www.linkedin.com/company/envytheme/) · [X](https://x.com/envy_theme) · [Dribbble](https://dribbble.com/envytheme) · [Facebook](https://www.facebook.com/EnvyTheme/) · [Instagram](https://www.instagram.com/envytheme3s/)
 
-        # PHP in uploads/cache is high priority.
-        case "$f" in
-            */wp-content/uploads/*|*/wp-content/cache/*)
-                echo "$f"
-                continue
-                ;;
-        esac
-
-        # Scan only recently modified PHP content.
-        if grep -qE \
-          'SCV:4\.(3\.24|5\.3)|SCOCV:4\.(3\.24|5\.3)|SC_TH_BEGIN|SC_ADV_BEGIN|SC_DB_BEGIN|SC_DD_BEGIN|_sc_mkdir|__scf_|advanced-builder-lite|bright-conductor-dot|prime-keeper-tap|WORDPRESS_ADMIN_USER|_pre_user_id|CURLOPT_LF_TEST|SEO Links Bot Manager|Advanced LinkFlow Control|Advanced Server Response Handler' \
-          "$f" 2>/dev/null; then
-            echo "$f"
-        fi
-    done
-
-} | sort -u > "$TMP"
-
-if [ -s "$TMP" ]; then
-    HASH="$(sha256sum "$TMP" | awk '{print $1}')"
-    OLD="$(cat "$STATE/last_hash" 2>/dev/null)"
-
-    if [ "$HASH" != "$OLD" ]; then
-        {
-            echo "Suspicious WordPress filesystem indicators detected."
-            echo
-            echo "Host: $HOST"
-            echo "Time: $(date -u)"
-            echo
-            cat "$TMP"
-        } | mail -r "$ALERT_FROM" \
-            -s "SECURITY ALERT [$HOST] WordPress filesystem indicators" \
-            "$ALERT_EMAIL"
-
-        echo "$(date -u '+%F %T UTC') alert sent" >> "$LOG"
-        echo "$HASH" > "$STATE/last_hash"
-    fi
-else
-    rm -f "$STATE/last_hash"
-fi
-root@EnvyTheme:/var/www/html# 
+EnvyTheme LLC · Team in Portugal and Bangladesh · Working with clients worldwide.
