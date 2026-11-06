@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://envytheme.com/"><img src="https://eupixel.com/f/envytheme-logo-transparent-be82a0a4.svg" width="300" alt="EnvyTheme" /></a>
+  <a href="https://envytheme.com/"><img src="https://eupixel.com/f/envytheme-logo-transparent-57fdc3f8.png" width="300" alt="EnvyTheme" /></a>
 </p>
 
 <h1 align="center">EnvyTheme</h1>
