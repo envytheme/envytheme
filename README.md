@@ -1,87 +1,66 @@
 <p align="center">
-  <a href="https://envytheme.com/">
-    <img src="https://envytheme.com/apple-icon.png" width="80" height="80" alt="EnvyTheme logo" />
-  </a>
+  <a href="https://envytheme.com/"><img src="https://envytheme.com/brand/envytheme-logo.svg" width="300" alt="EnvyTheme" /></a>
 </p>
 
 <h1 align="center">EnvyTheme</h1>
 
 <p align="center">
-  <strong>Product design &amp; development</strong><br />
-  Design and development for products people actually use.
+  <strong>Themes, templates and apps.</strong><br />
+  A starting point for your next project.
 </p>
 
 <p align="center">
-  <a href="https://envytheme.com/contact">Start a project</a> &nbsp;·&nbsp;
-  <a href="https://envytheme.com/work">Explore our work</a> &nbsp;·&nbsp;
-  <a href="https://envytheme.com/pricing">View pricing</a> &nbsp;·&nbsp;
-  <a href="https://support.envytheme.com/">Item support</a>
+  <a href="https://envytheme.com/">Website</a> &nbsp;·&nbsp;
+  <a href="https://envytheme.com/products">Explore products</a> &nbsp;·&nbsp;
+  <a href="https://themeforest.net/user/envytheme/portfolio">ThemeForest portfolio</a> &nbsp;·&nbsp;
+  <a href="https://themes.gallery/">Themes.Gallery</a>
 </p>
 
-We help founders, businesses and development teams design, build, launch and improve digital products. Our work spans UI/UX, websites, web and mobile apps, SaaS, eCommerce and AI integrations.
+---
 
-As an **Envato Power Elite Author**, our team brings experience creating **1,500+ digital products used by 70,000+ customers across our product catalog and marketplace accounts**. We bring that experience to custom projects, product improvements and ongoing development.
+We design and build themes, templates and apps for businesses, developers and creators. Our catalogue spans **React, Next.js, Angular, Vue, WordPress and Moodle**, alongside HTML templates and admin dashboards.
 
-## What we do
+**EnvyTheme is an Envato Power Elite Author.** Across our EnvyTheme, HiBootstrap and HiboTheme product catalogues, our work reaches **70,000+ customers**, with **1,000+ products** published.
 
-| Service | How we help |
-| --- | --- |
-| **UI/UX & product design** | User journeys, wireframes, interface design, prototypes and design systems. |
-| **Web app development** | Dashboards, portals and custom applications with frontend and backend development. |
-| **Mobile app development** | iOS and Android apps built with Flutter or React Native. |
-| **SaaS & MVP development** | Product scoping, prototypes and the core features needed for a first release. |
-| **Website development** | Responsive marketing websites, landing pages and CMS implementation. |
-| **Shopify & eCommerce** | Store setup, custom themes, integrations and improvements to existing stores. |
-| **AI app rescue** | Review and improve apps made with AI tools, addressing issues before launch. |
-| **AI integration** | Assistants, search, summaries, and workflow automation inside your product. |
-| **Maintenance & support** | Updates, fixes, monitoring and improvements after launch. |
+## Explore our products
 
-We also offer **paid theme and template customization**, including setup, branding, layout changes, custom features and integrations.
+| Product | What you can build with it | Preview |
+| --- | --- | --- |
+| **Trezo** | Admin dashboards and landing pages across multiple frameworks. | [Live demo](https://preview.envytheme.com/trezo-admin/) |
+| **StartP** | React and Next.js websites for startups, SaaS and digital agencies. | [Live demo](https://preview.envytheme.com/startp-react/) |
+| **Vaximo** | Cybersecurity websites with WordPress. | [Live demo](https://preview.envytheme.com/vaximo-wp/) |
+| **eDash** | Online learning websites with Moodle. | [Live demo](https://preview.envytheme.com/edash-moodle/) |
+| **Guto Theme** | Multipurpose WordPress websites. | [Product website](https://gutotheme.com/) |
+| **Affilyn** | Affiliate and partner programs for Shopify stores. | [Product website](https://affilyn.com/) |
 
-[Explore our services →](https://envytheme.com/services)
+[View the product catalogue →](https://envytheme.com/products)
 
-## Technologies we work with
+## Platforms and technologies
 
-- **Design:** Figma, interactive prototypes and design systems.
-- **Frontend:** React, Next.js, Vue, Angular, Astro, Tailwind CSS and Bootstrap.
-- **Backend:** Node.js, Laravel, Django and Ruby on Rails.
-- **Mobile:** Flutter and React Native.
-- **Websites & commerce:** WordPress, WooCommerce, Shopify, Webflow and Framer.
+**React · Next.js · Angular · Vue · WordPress · Moodle**  
+HTML · CSS · JavaScript · TypeScript · Tailwind CSS · Bootstrap
 
-We choose the stack around your product, existing systems, and the team maintaining it.
+Features, dependencies and supported versions vary by item. Check the product description, documentation and changelog before choosing a template.
 
-## How we work
+## Find our work
 
-1. **Scope:** Understand your goals and agree on deliverables, price, and timeline in writing.
-2. **Design:** Map the experience and refine the screens into a prototype.
-3. **Build:** Develop, review, test, and prepare the product for launch.
-4. **Improve:** Continue with maintenance, fixes, and the next features.
+- [**EnvyTheme on ThemeForest**](https://themeforest.net/user/envytheme/portfolio)
+- [**HiBootstrap on ThemeForest**](https://themeforest.net/user/hibootstrap/portfolio)
+- [**HiboTheme on ThemeForest**](https://themeforest.net/user/hibotheme/portfolio)
+- [**Themes.Gallery**](https://themes.gallery/)
 
-You work with a dedicated project manager, a shared project board, and weekly updates. We use AI to accelerate research, design, and development, with our designers and engineers reviewing the work.
+## Product support
 
-Choose a fixed-scope project, an ongoing design and development subscription, or a care plan. We can also work alongside your existing team. We can provide an NDA on request before you share sensitive project information.
+Start with the documentation included in your download. If you need more help, open the **Support** tab on your purchased item's ThemeForest page and follow its support instructions.
 
-## Products from our catalog
+Include the item name, version and steps to reproduce the issue. Share purchase codes privately, and keep credentials out of public comments and GitHub issues.
 
-| Product | What it is |
-| --- | --- |
-| [Trezo](https://envytheme.com/work/trezo) | Admin dashboard and landing page templates across multiple frameworks. |
-| [Vaximo](https://envytheme.com/work/vaximo) | A cybersecurity WordPress theme. |
-| [StartP](https://envytheme.com/work/startp) | React and Next.js templates for startups, SaaS and digital agencies. |
+Support for supported items follows [Envato's Item Support Policy](https://themeforest.net/page/item_support_policy) and your support entitlement. Installation and customization are not included in standard item support.
 
-[Browse our ThemeForest portfolio →](https://themeforest.net/user/envytheme/portfolio)
+## Keep in touch
 
-## Work with us
+[Website](https://envytheme.com/) · [LinkedIn](https://www.linkedin.com/company/envytheme/) · [X](https://x.com/envy_theme) · [Dribbble](https://dribbble.com/envytheme)
 
-Tell us what you are building, share an existing product, or describe what needs improving. We will discuss the requirements and confirm the scope and quote before work starts.
+---
 
-**[Send your project brief →](https://envytheme.com/contact)**  
-**Email:** [salak@envytheme.com](mailto:salak@envytheme.com)
-
-For help with an existing theme or template purchase, please use our [support portal](https://support.envytheme.com/). Item support follows [Envato's Item Support Policy](https://themeforest.net/page/item_support_policy); customization and installation are quoted separately.
-
-## Connect
-
-[Website](https://envytheme.com/) · [LinkedIn](https://www.linkedin.com/company/envytheme/) · [X](https://x.com/envy_theme) · [Dribbble](https://dribbble.com/envytheme) · [Facebook](https://www.facebook.com/EnvyTheme/) · [Instagram](https://www.instagram.com/envytheme3s/)
-
-EnvyTheme LLC · Team in Portugal and Bangladesh · Working with clients worldwide.
+EnvyTheme LLC · Themes, templates and apps since 2017.
