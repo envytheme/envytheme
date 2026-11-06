@@ -18,9 +18,9 @@
 
 ---
 
-We design and build themes, templates and apps for businesses, developers and creators. Our catalogue spans **React, Next.js, Angular, Vue, WordPress and Moodle**, alongside HTML templates and admin dashboards.
+We design and build themes, templates and apps for businesses, developers and creators. Our catalog spans **React, Next.js, Angular, Vue, WordPress and Moodle**, alongside HTML templates and admin dashboards.
 
-**EnvyTheme is an Envato Power Elite Author.** Across our EnvyTheme, HiBootstrap and HiboTheme product catalogues, our work reaches **70,000+ customers**, with **1,000+ products** published.
+**EnvyTheme is an Envato Power Elite Author.** Across our EnvyTheme, HiBootstrap, and HiboTheme product catalogs, our work reaches **70,000+ customers**, with **1,000+ products** published.
 
 ## Explore our products
 
@@ -33,7 +33,7 @@ We design and build themes, templates and apps for businesses, developers and cr
 | **Guto Theme** | Multipurpose WordPress websites. | [Product website](https://gutotheme.com/) |
 | **Affilyn** | Affiliate and partner programs for Shopify stores. | [Product website](https://affilyn.com/) |
 
-[View the product catalogue →](https://envytheme.com/products)
+[View the product catalog →](https://envytheme.com/products)
 
 ## Platforms and technologies
 
