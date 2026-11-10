@@ -7,16 +7,15 @@
 
 <p align="center">
   <a href="https://envytheme.com/">Website</a> &nbsp;·&nbsp;
-  <a href="https://envytheme.com/products">Explore products</a> &nbsp;·&nbsp;
+  <a href="https://themes.gallery/user/EnvyTheme/portfolio">Explore products</a> &nbsp;·&nbsp;
   <a href="https://themeforest.net/user/envytheme/portfolio">ThemeForest portfolio</a> &nbsp;·&nbsp;
   <a href="https://themes.gallery/">Themes.Gallery</a>
 </p>
 
 ---
+We design and build themes, templates and apps for businesses, developers and creators. Our catalogue spans **React, Next.js, Angular, Vue, WordPress and Moodle**, alongside HTML templates and admin dashboards.
 
-We design and build themes, templates and apps for businesses, developers and creators. Our catalog spans **React, Next.js, Angular, Vue, WordPress and Moodle**, alongside HTML templates and admin dashboards.
-
-**EnvyTheme is an Envato Power Elite Author.** Across our EnvyTheme, HiBootstrap, and HiboTheme product catalogs, our work reaches **70,000+ customers**, with **1,000+ products** published.
+EnvyTheme is an **Envato Power Elite Author.** Across our EnvyTheme, HiBootstrap and HiboTheme accounts, our products reach **70,000+ customers**, with **1,000+ reviews** averaging **4.5+ stars**.
 
 ## Explore our products
 
